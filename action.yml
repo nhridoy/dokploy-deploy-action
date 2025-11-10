@@ -1,4 +1,4 @@
-name: 'Dokploy Deployment (application/compose)'
+name: 'Dokploy Deployment Action'
 description: 'Trigger a Dokploy deployment for an application or compose via Dokploy API.'
 author: Nahidujjaman Hridoy <nhridoy>
 branding:
