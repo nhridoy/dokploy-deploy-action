@@ -132,4 +132,4 @@ Please follow the [Code of Conduct](CODE_OF_CONDUCT.md) (if available) and ensur
 
 This project is licensed under the MIT License, which allows for free use, modification, and distribution. See the [LICENSE](LICENSE) file for the full license text.
 
-For questions or support, open an issue on the [GitHub repository](https://github.com/benbristow/dokploy-deploy-action).
+For questions or support, open an issue on the [GitHub repository](https://github.com/nhridoy/dokploy-deploy-action).
