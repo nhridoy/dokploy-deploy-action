@@ -15,7 +15,7 @@ This GitHub Action triggers a deployment on Dokploy.
 
 ### `application_id`
 
-**Required** The Dokploy application ID.
+**Required** Dokploy application ID (or compose ID if deployment_type is `compose`)
 
 ### `dokploy_url`
 

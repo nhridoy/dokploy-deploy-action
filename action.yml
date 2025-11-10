@@ -11,11 +11,11 @@ inputs:
     description: 'Dokploy authentication token'
     required: true
   deployment_type:
-    description: 'Type of deployment to trigger (optional)'
+    description: 'Type of deployment to trigger. Must be either "application" or "compose" (optional, defaults to "application")'
     required: false
     default: 'application'
   application_id:
-    description: 'Dokploy application ID'
+    description: 'Dokploy application ID (or compose ID if deployment_type is "compose")'
     required: true
 runs:
   using: "composite"
@@ -28,17 +28,36 @@ runs:
         DOKPLOY_DEPLOYMENT_TYPE: ${{ inputs.deployment_type }}
         DOKPLOY_APPLICATION_ID: ${{ inputs.application_id }}
       run: |
-        response=$(curl -X 'POST' \
-          "$DOKPLOY_URL/api/application.deploy" \
-          -H 'accept: application/json' \
-          -H 'Content-Type: application/json' \
-          -H "Authorization: Bearer $DOKPLOY_AUTH_TOKEN" \
-          -d "{\"applicationId\": \"$DOKPLOY_APPLICATION_ID\"}" \
-          -w "%{http_code}" \
-          -o /dev/null \
-          -s)
+        # Validate deployment_type
+        if [[ "$DOKPLOY_DEPLOYMENT_TYPE" != "application" && "$DOKPLOY_DEPLOYMENT_TYPE" != "compose" ]]; then
+          echo "Error: deployment_type must be 'application' or 'compose'. Received: $DOKPLOY_DEPLOYMENT_TYPE"
+          exit 1
+        fi
+        
+        if [[ "$DOKPLOY_DEPLOYMENT_TYPE" == "application" ]]; then
+          response=$(curl -X 'POST' \
+            "$DOKPLOY_URL/api/application.deploy" \
+            -H 'accept: application/json' \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer $DOKPLOY_AUTH_TOKEN" \
+            -d "{\"applicationId\": \"$DOKPLOY_APPLICATION_ID\"}" \
+            -w "%{http_code}" \
+            -o /dev/null \
+            -s)
+        else
+          response=$(curl -X 'POST' \
+            "$DOKPLOY_URL/api/compose.deploy" \
+            -H 'accept: application/json' \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer $DOKPLOY_AUTH_TOKEN" \
+            -d "{\"composeId\": \"$DOKPLOY_APPLICATION_ID\"}" \
+            -w "%{http_code}" \
+            -o /dev/null \
+            -s)
+        fi
         
         if [ "$response" -ne 200 ]; then
           echo "Deployment failed with status code: $response"
           exit 1
         fi
+        echo "Deployment triggered successfully for type: $DOKPLOY_DEPLOYMENT_TYPE"
