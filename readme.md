@@ -87,7 +87,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Trigger Dokploy Deployment
-        uses: nhridoy/dokploy-multi-deployment-action@0.0.2
+        uses: nhridoy/dokploy-deploy-action@0.0.1
         with:
           auth_token: ${{ secrets.DOKPLOY_AUTH_TOKEN }}
           deployment_type: ${{ vars.DOKPLOY_DEPLOYMENT_TYPE }}  # Optional: Use repository variables or secrets
