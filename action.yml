@@ -1,5 +1,5 @@
 name: 'Dokploy Deployment (application/compose)'
-description: 'Trigger a Dokploy deployment'
+description: 'Trigger a Dokploy deployment for an application or compose via Dokploy API.'
 author: Nahidujjaman Hridoy <nhridoy>
 branding:
   icon: 'upload-cloud'
