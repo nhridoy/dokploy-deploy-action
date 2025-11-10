@@ -10,6 +10,10 @@ inputs:
   auth_token:
     description: 'Dokploy authentication token'
     required: true
+  deployment_type:
+    description: 'Type of deployment to trigger (optional)'
+    required: false
+    default: 'application'
   application_id:
     description: 'Dokploy application ID'
     required: true
@@ -21,6 +25,7 @@ runs:
       env:
         DOKPLOY_URL: ${{ inputs.dokploy_url }}
         DOKPLOY_AUTH_TOKEN: ${{ inputs.auth_token }}
+        DOKPLOY_DEPLOYMENT_TYPE: ${{ inputs.deployment_type }}
         DOKPLOY_APPLICATION_ID: ${{ inputs.application_id }}
       run: |
         response=$(curl -X 'POST' \

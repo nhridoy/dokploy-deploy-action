@@ -8,6 +8,11 @@ This GitHub Action triggers a deployment on Dokploy.
 
 **Required** The Dokploy authentication token.
 
+### `deployment_type`
+
+**Not Required** `compose` | `application`
+(default: `application`)
+
 ### `application_id`
 
 **Required** The Dokploy application ID.
@@ -38,6 +43,7 @@ jobs:
       uses: benbristow/dokploy-deploy-action@0.0.1
       with:
         auth_token: ${{ secrets.DOKPLOY_AUTH_TOKEN }}
+        deployment_type: ${{ secrets.DOKPLOY_DEPLOYMENT_TYPE }}
         application_id: ${{ secrets.DOKPLOY_APPLICATION_ID }}
         dokploy_url: ${{ secrets.DOKPLOY_URL }}
 ```
