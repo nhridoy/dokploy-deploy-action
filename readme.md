@@ -46,7 +46,7 @@ The action accepts the following inputs, which configure the connection to your 
    curl -X 'GET' \
      "$DOKPLOY_URL/api/project.all" \
      -H 'accept: application/json' \
-     -H "Authorization: Bearer $AUTH_TOKEN"
+     -H 'x-api-key: <token>'
    ```
    Parse the response to find the relevant `applicationId` or `composeId`.  
 **Store as Secret**: Recommended to store as a GitHub secret (e.g., `DOKPLOY_APPLICATION_ID`) for security.
